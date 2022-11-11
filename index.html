@@ -8,41 +8,46 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <div>
-        <table border="1" class="table">
-            <td>
-                <table border="1" class="listendirectory">
-                    <tr>
-                        <td>buttons</td>
-                    </tr>
-                    <tr>
-                        <td>
-                            listendirectory
-                            <hr>
-                            <table>
-                                liste von TodoListen
-                            </table>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-            <td>
-                listenTitel
-                <hr>
-                <table id="TodoList" border="1" class="listendirectory">
-                    <tr>
-                        <td>erster eintrag</td>
-                        <td>
-                            <form action="post">
-                                <input type="checkbox">
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </table>
-        <script src="index.js"></script>
-    </div>
+    <table border="1" class="table">
+        <td>
+            <table border="1" class="listendirectory">
+                <tr>
+                    <td>
+                        <input type="button" name="addNewList" id="addNewList" value="add" onclick="addButton()">
+                    </td>
+                    <td>
+                        <input type="text" name="nameOfList" id="nameOfList" placeholder="ListName">
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">
+                        <h4>Listendirectory</h4>
+                        <hr>
+                        <table>
+                            liste von TodoListen
+                        </table>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        
+        <td>
+            listenTitel
+            <hr>
+            <table id="TodoList" border="1" class="listendirectory">
+                <tr>
+                    <td>erster eintrag</td>
+                    <td>
+                        <form action="post">
+                            <input type="checkbox">
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </td> 
+    </table>
+
+    <script src="index.js"></script>
     
 </body>
 </html>
