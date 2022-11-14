@@ -13,34 +13,33 @@
             <table border="1" class="listendirectory">
                 <tr>
                     <td>
-                        <input type="button" name="addNewList" id="addNewList" value="add" onclick="addButton()">
+                        <input type="button" name="addNewList" id="addNewList" value="add">
                     </td>
                     <td>
-                        <input type="text" name="nameOfList" id="nameOfList" placeholder="ListName">
+                        <form action="">
+                            <input type="text" name="nameOfList" id="nameOfList" placeholder="ListName">
+                        </form>
                     </td>
                 </tr>
                 <tr>
-                    <td colspan="2">
+                    <td colspan="2" class="listBox">
                         <h4>Listendirectory</h4>
                         <hr>
-                        <table>
-                            liste von TodoListen
+                        <table name="TodoListen" id="TodoListen">
                         </table>
                     </td>
                 </tr>
             </table>
         </td>
         
-        <td>
-            listenTitel
+        <td class="listBox">
+            <h4>ListenTitel</h4>
             <hr>
             <table id="TodoList" border="1" class="listendirectory">
                 <tr>
                     <td>erster eintrag</td>
                     <td>
-                        <form action="post">
-                            <input type="checkbox">
-                        </form>
+                        <input type="checkbox">
                     </td>
                 </tr>
             </table>

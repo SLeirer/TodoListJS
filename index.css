@@ -3,7 +3,11 @@
     margin-left: auto;
     width: 500px;
 }
+
 .listendirectory{
     width: 100%;
 }
 
+.listBox{
+    vertical-align: top;
+}
