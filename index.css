@@ -11,3 +11,11 @@
 .listBox{
     vertical-align: top;
 }
+
+.heading{
+    text-align: center;
+}
+
+.listItem{
+    text-align: right;
+}

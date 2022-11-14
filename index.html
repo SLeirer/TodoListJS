@@ -13,37 +13,46 @@
             <table border="1" class="listendirectory">
                 <tr>
                     <td>
+                        <label for="nameOfList">Listen Name</label><br>
+                        <input type="text" name="nameOfList" id="nameOfList" placeholder="ListName">
+                    </td>
+                    <td>
                         <input type="button" name="addNewList" id="addNewList" value="add">
                     </td>
                     <td>
-                        <form action="">
-                            <input type="text" name="nameOfList" id="nameOfList" placeholder="ListName">
-                        </form>
+                        <label for="listenEintrag" id="labelListenEintrag" hidden>Listen Eintrag</label><br>
+                        <input type="text" name="listenEintrag" id="listenEintrag" placeholder="Listen Eintrag" hidden>
+                    </td>
+                    <td>
+                        <input type="button" name="addNewEntry" id="addNewEntry" value="add" hidden>
                     </td>
                 </tr>
                 <tr>
                     <td colspan="2" class="listBox">
-                        <h4>Listendirectory</h4>
+                        <h4 class="heading">Listendirectory</h4>
                         <hr>
                         <table name="TodoListen" id="TodoListen">
+                            <!--List with dynamically created entires-->
+                        </table>
+                    </td>
+                    <td colspan="2" class="listBox">
+                        <h4 class="heading" id="currentListTitel">ListenTitel</h4>
+                        <hr>
+                        <table id="currentTodoList" class="listendirectory">
+                            <!--List with dynamically created entires-->
+                        </table>
+                    </td> 
+                </tr>
+                <tr>
+                    <td colspan="2"></td>
+                    <td colspan="2" class="listBox">
+                        <table id="deletedEntries" class="listendirectory">
+
                         </table>
                     </td>
                 </tr>
             </table>
         </td>
-        
-        <td class="listBox">
-            <h4>ListenTitel</h4>
-            <hr>
-            <table id="TodoList" border="1" class="listendirectory">
-                <tr>
-                    <td>erster eintrag</td>
-                    <td>
-                        <input type="checkbox">
-                    </td>
-                </tr>
-            </table>
-        </td> 
     </table>
 
     <script src="index.js"></script>
