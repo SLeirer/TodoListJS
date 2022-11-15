@@ -8,51 +8,45 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-    <table border="1" class="table">
-        <td>
-            <table border="1" class="listendirectory">
-                <tr>
-                    <td>
-                        <label for="nameOfList">Listen Name</label><br>
-                        <input type="text" name="nameOfList" id="nameOfList" placeholder="ListName">
-                    </td>
-                    <td>
-                        <input type="button" name="addNewList" id="addNewList" value="add">
-                    </td>
-                    <td>
-                        <label for="listenEintrag" id="labelListenEintrag" hidden>Listen Eintrag</label><br>
-                        <input type="text" name="listenEintrag" id="listenEintrag" placeholder="Listen Eintrag" hidden>
-                    </td>
-                    <td>
-                        <input type="button" name="addNewEntry" id="addNewEntry" value="add" hidden>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2" class="listBox">
-                        <h4 class="heading">Listendirectory</h4>
-                        <hr>
-                        <table name="TodoListen" id="TodoListen">
-                            <!--List with dynamically created entires-->
-                        </table>
-                    </td>
-                    <td colspan="2" class="listBox">
-                        <h4 class="heading" id="currentListTitel">ListenTitel</h4>
-                        <hr>
-                        <table id="currentTodoList" class="listendirectory">
-                            <!--List with dynamically created entires-->
-                        </table>
-                    </td> 
-                </tr>
-                <tr>
-                    <td colspan="2"></td>
-                    <td colspan="2" class="listBox">
-                        <table id="deletedEntries" class="listendirectory">
+    <table border="1" class="superTable">
+        <tr>
+            <td>
+                <label for="nameOfList">Listen Name</label><br>
+                <input type="text" name="nameOfList" id="nameOfList" placeholder="ListName">
+            </td>
+            <td>
+                <input type="button" name="addNewList" id="addNewList" value="add">
+            </td>
+            <td>
+                <label for="listenEintrag" id="labelListenEintrag" hidden>Listen Eintrag</label><br>
+                <input type="text" name="listenEintrag" id="listenEintrag" placeholder="Listen Eintrag" hidden>
+            </td>
+            <td>
+                <input type="button" name="addNewEntry" id="addNewEntry" value="add" hidden>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" class="listBox">
+                <h4 class="heading">Listendirectory</h4>
+                <hr>
+                <table border="1" name="TodoListen" id="TodoListen" class="listTable">
+                    <!--List with dynamically created entires-->
+                </table>
+            </td>
+            <td colspan="2" class="listBox">
+                <h4 class="heading" id="currentListTitel">ListenTitel</h4>
+                <hr>
+                <table border="1" id="currentTodoList" class="listTable">
+                    <!--List with dynamically created entires-->
+                </table>
+                <br>
+                <table border="1" id="deletedEntries" class="listTable">
 
-                        </table>
-                    </td>
-                </tr>
-            </table>
-        </td>
+                </table>
+                <table border="1" id="hideDeletedListButton" class="listTable">
+
+                </table>
+            </td> 
     </table>
 
     <script src="index.js"></script>

@@ -1,13 +1,18 @@
 //////////////////////////////////////////////////////////
-//////////////          TODO                //////////////
+//////////////          ToDo                //////////////
 //////////////////////////////////////////////////////////
-//
-//  *   show deleted list / show deleted button is persistant for other lists
-//
+/* 
+        jason local save file?
+        delete buttons for lists and paper bin
+ */
+//////////////////////////////////////////////////////////
+//////////////          Events              //////////////
+//////////////////////////////////////////////////////////
 
-// events
-document.getElementById("addNewList").addEventListener('click',addButton);
-document.getElementById("addNewEntry").addEventListener('click',addEntryToList);
+document.getElementById("addNewList").addEventListener('click',addTodoListBtn);
+document.getElementById("addNewEntry").addEventListener('click',addEntryToCurrentList);
+
+// eventlisteners that create the function to submit entries in textfield with enter without using a form
 document.getElementById("nameOfList").addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.key == "Enter") {
@@ -21,22 +26,37 @@ document.getElementById("listenEintrag").addEventListener("keyup", function(even
     }
 });
 
-// global variables
+//////////////////////////////////////////////////////////
+//////////////       Global Variables       //////////////
+//////////////////////////////////////////////////////////
 let listOfTodoLists = [];
 let selectedListIndex;
 let showDeletedList = false;
 
-// objects
+// Class object for lists
 class List {
     listName = "";
     listData = [];
     listDataDeleted = [];
 }
 
-// functions
-function addButton(){
+//////////////////////////////////////////////////////////
+//////////////          Functions           //////////////
+//////////////////////////////////////////////////////////
+function addTodoListBtn(){
+    // Creates a new list with textfield input as name
+
+    document.getElementById("listenEintrag").hidden = true;
+    document.getElementById("addNewEntry").hidden = true;
+    document.getElementById("labelListenEintrag").hidden = true;
+    document.getElementById("deletedEntries").innerHTML = "";
+    document.getElementById("currentTodoList").innerHTML = "";
+    document.getElementById("hideDeletedListButton").innerHTML = "";
+    document.getElementById("currentListTitel").innerText = "ListenTitel";
+
     let input = document.getElementById("nameOfList");
 
+    // checks if entry already exists to prevent creating lists with the same name
     listOfTodoLists.forEach(element => {
         if(element.Name == input.value){
             alert("List already exists");
@@ -55,6 +75,7 @@ function addButton(){
     list.Name = input.value;
     listOfTodoLists.push(list);
 
+    // input value is reset to prevent issues when reusing variable
     input.value = "";
     
     // gives out names of list in console for testing purposes
@@ -63,13 +84,15 @@ function addButton(){
     }
     console.log("___________________");
 
-    //creates table elements
-    updateTodolists();
+    // creates table elements
+    updateTodolistsUi();
 }
-
-function addEntryToList(){
+function addEntryToCurrentList(){
+    // adds entry to selected list
     let input = document.getElementById("listenEintrag");
 
+    // check if entry already exists in active entries or paper bin,
+    // to prevent multiple entroes with the same value
     if( listOfTodoLists[selectedListIndex].listData.includes(input.value) ||
         listOfTodoLists[selectedListIndex].listDataDeleted.includes(input.value)){
             alert("Entry already exists");
@@ -82,21 +105,22 @@ function addEntryToList(){
         return;
     }
 
+    // adds entry to current list
     let entry = input.value;
     listOfTodoLists[selectedListIndex].listData.push(entry);
 
     input.value = "";
 
-    updateActualList(selectedListIndex);
+    updateCurrentList(selectedListIndex);
 }
+function updateTodolistsUi(){
+    // creates html code for dynamic list
 
-function updateTodolists(){
-    //creates table elements
     let tableBody = document.getElementById("TodoListen");
     let dataHtml = "";
     let counter = 1;
 
-    //sorting by comparing names of objects
+    // sorting alphabetically by comparing names of objects
     listOfTodoLists.sort((a, b) => {
         let fa = a.Name.toLowerCase();
         let fb = b.Name.toLowerCase();
@@ -110,7 +134,7 @@ function updateTodolists(){
         return 0;
     });
     
-    //creates table content string
+    // dynamic html code for each entry 
     listOfTodoLists.forEach(element => {
         dataHtml += "<tr>"+
                         "<td width=\"30\">"
@@ -128,36 +152,49 @@ function updateTodolists(){
 
     console.log(dataHtml);
 
+    //submits html code to table tag
     tableBody.innerHTML = dataHtml;
 
-    //creates eventlisteners for dynamically created radio buttons
+    // creates eventlisteners for dynamically created radio buttons
     counter = 0;
     listOfTodoLists.forEach(element => {
         let temp = "listItem" + counter;
-        document.getElementById(temp).addEventListener('click', displayList); 
+        document.getElementById(temp).addEventListener('click', selectList); 
         counter++;
     });
 }
-
-function displayList(){
+function selectList(){
+    // selects the list for the dynamicly created radio button
     showDeletedList = false;
     selectedListIndex = this.value;
+
+    document.getElementById("hideDeletedListButton").innerHTML = "";
+
+    // sets html code of tag "deletedEntries" to nothing,
+    // to prevent persistent entries from other lists from showing up
+    if(listOfTodoLists[selectedListIndex].listDataDeleted == 0){
+        document.getElementById("deletedEntries").innerHTML = "";
+    }
+
+    // Changing the title of the current list
     let title = document.getElementById("currentListTitel");
-    
     title.innerText = "Current List: " + listOfTodoLists[selectedListIndex].Name;
 
+    // once a list is selected shows the required functionality for adding entries
     document.getElementById("listenEintrag").hidden = false;
     document.getElementById("addNewEntry").hidden = false;
     document.getElementById("labelListenEintrag").hidden = false;
     
-    updateActualList(selectedListIndex);
+    updateCurrentList(selectedListIndex);
 }
+function updateCurrentList(selectedListIndex){
+    // updates html content for selected lists
 
-function updateActualList(selectedListIndex){
     let tableBody = document.getElementById("currentTodoList");
     let dataHtml = "";
     let counter = 1;
 
+    // handles different cases regarding the appearance of the paper bin list
     if(listOfTodoLists[selectedListIndex].listDataDeleted.length > 0){
         //when deleted list has at least 1 entry
         if(!showDeletedList){
@@ -168,7 +205,6 @@ function updateActualList(selectedListIndex){
 
             // create eventlistener for button
             document.getElementById("showDeletedListBtn").addEventListener('click', showDeletedListEntries);
-            showDeletedList = true;
         }
     }
 
@@ -178,7 +214,7 @@ function updateActualList(selectedListIndex){
         return;
     }
     else{
-        //list has at least one entry
+        // create dynamic html code if list has at least one entry
         listOfTodoLists[selectedListIndex].listData.forEach(element => {
             dataHtml += "<tr>"+
                         "<td width=\"30\">"
@@ -195,28 +231,35 @@ function updateActualList(selectedListIndex){
         });
     }
 
+    // submits html code to tag
     tableBody.innerHTML = dataHtml;
 
     //creating eventlisteners for dynamically created buttons
     counter = 0;
     listOfTodoLists[selectedListIndex].listData.forEach(element => {
         let temp = "subListItem" + counter;
-        document.getElementById(temp).addEventListener('click', deleteList); 
+        document.getElementById(temp).addEventListener('click', deleteSelectedEntry); 
         counter++;
     });
 }
+function deleteSelectedEntry(){
+    // deletes entry from current list and pushes it to paper bin
 
-function deleteList(){
     let currentEntryIndex = this.value;
-    //adds deleted entry to bin list
+    // adds deleted entry to bin list
     listOfTodoLists[selectedListIndex].listDataDeleted.push(listOfTodoLists[selectedListIndex].listData[currentEntryIndex]);
     listOfTodoLists[selectedListIndex].listData.splice(currentEntryIndex, 1);
-    updateActualList(selectedListIndex);
+    updateCurrentList(selectedListIndex);
+    if(showDeletedList){
+        showDeletedListEntries();
+    }
 }
-
 function showDeletedListEntries(){
+    // creates dynamic html code for the paper bin list
+    showDeletedList = true;
+
     let tableBody = document.getElementById("deletedEntries");
-    let dataHtml = "<tr><td>Deleted Entries</td></tr>";
+    let dataHtml = "";
     let counter = 1;
 
     listOfTodoLists[selectedListIndex].listDataDeleted.forEach(element => {
@@ -234,32 +277,33 @@ function showDeletedListEntries(){
             counter++;
     });
 
-    dataHtml += "<tr><td><input type=\"button\" name=\"hideDeletedListBtn\" id=\"hideDeletedListBtn\" value=\"Hide Deleted Entries\"></td></tr>";
-
+    // always adds a button at the end of the list to make it possible to hide the paper bin list
+    document.getElementById("hideDeletedListButton").innerHTML = "<tr><td><input type=\"button\" name=\"hideDeletedListBtn\" id=\"hideDeletedListBtn\" value=\"Hide Deleted Entries\"></td></tr>";
     tableBody.innerHTML = dataHtml;
-
     document.getElementById("hideDeletedListBtn").addEventListener('click', hideDeletedList);
 
-    //creating eventlisteners for dynamically created buttons
+    // creating eventlisteners for dynamically created buttons
     counter = 0;
     listOfTodoLists[selectedListIndex].listDataDeleted.forEach(element => {
         let temp = "deletedSubListItem" + counter;
-        document.getElementById(temp).addEventListener('click', reAddToList); 
+        document.getElementById(temp).addEventListener('click', reAddDeletedEntriesToList); 
         counter++;
     });
 }
-
-function reAddToList(){
+function reAddDeletedEntriesToList(){
+    // switches selected item from paper bin back to actual list
     let input = this;
 
     listOfTodoLists[selectedListIndex].listData.push(listOfTodoLists[selectedListIndex].listDataDeleted[input.value]);
     listOfTodoLists[selectedListIndex].listDataDeleted.splice(input.value, 1);
     
-    updateActualList(selectedListIndex);
+    updateCurrentList(selectedListIndex);
     showDeletedListEntries();
 }
-
 function hideDeletedList(){
+    // sets boolean for, if the paper bin list is visible to false and updates the list
+
     showDeletedList = false;
-    updateActualList(selectedListIndex);
+    document.getElementById("hideDeletedListButton").innerHTML = "";
+    updateCurrentList(selectedListIndex);
 }
