@@ -1,7 +1,13 @@
+table{
+    border-style: groove;
+}
+
 .superTable{
     margin-left: 10%;
     margin-right: 10%;
-    
+    margin-top: 3%;
+    margin-bottom: 3%;
+    width: 80%;
 }
 
 .listTable{
@@ -14,8 +20,30 @@
 
 .heading{
     text-align: center;
+    border-style: groove;
+    padding: 3%;
 }
 
 .listItem{
     text-align: right;
+    min-width: fit-content;
+    width: 48%;
+}
+
+.listIndex{
+    min-width: 3ch;
+    width: 4%;
+    text-align: right;
+}
+
+.selectButton{
+    text-align: right;
+    min-width: fit-content;
+    width: 48%;
+}
+
+.input{
+    border-style: groove;
+    width: 50%;
+    padding: 1%;
 }

@@ -137,13 +137,13 @@ function updateTodolistsUi(){
     // dynamic html code for each entry 
     listOfTodoLists.forEach(element => {
         dataHtml += "<tr>"+
-                        "<td width=\"30\">"
+                        "<td class=\"listIndex\">"
                             + counter +
                         "</td>" +
-                        "<td width=\"60\" class=\"listItem\">"
+                        "<td class=\"listItem\">"
                             + element.Name +
                         "</td>" +
-                        "<td>" +
+                        "<td class=\"selectButton\">" +
                             "<input type=\"radio\" name=\"listItem\" id=\"listItem" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
                         "</td>" +
                     "</tr>";
@@ -217,13 +217,13 @@ function updateCurrentList(selectedListIndex){
         // create dynamic html code if list has at least one entry
         listOfTodoLists[selectedListIndex].listData.forEach(element => {
             dataHtml += "<tr>"+
-                        "<td width=\"30\">"
+                        "<td class=\"listIndex\">"
                             + counter +
                         "</td>" +
-                        "<td width=\"60\" class=\"listItem\">"
+                        "<td class=\"listItem\">"
                             + element +
                         "</td>" +
-                        "<td>" +
+                        "<td class=\"selectButton\">" +
                             "<input type=\"radio\" name=\"subListItem\" id=\"subListItem" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
                         "</td>" +
                         "</tr>";
@@ -264,13 +264,13 @@ function showDeletedListEntries(){
 
     listOfTodoLists[selectedListIndex].listDataDeleted.forEach(element => {
         dataHtml += "<tr>"+
-                        "<td width=\"30\">" +
+                        "<td class=\"listIndex\">" +
                             counter +
                         "</td>" + 
-                        "<td width=\"60\" class=\"listItem\">"
+                        "<td class=\"listItem\">"
                             + element +
                         "</td>" +
-                        "<td>" +
+                        "<td class=\"selectButton\">" +
                             "<input type=\"radio\" name=\"deletedSubListItem\" id=\"deletedSubListItem" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
                         "</td>" +
                     "</tr>";
