@@ -19,7 +19,7 @@ document.getElementById("nameOfList").addEventListener("keyup", function(event) 
         document.getElementById("addNewList").click();
     }
 });
-document.getElementById("listenEintrag").addEventListener("keyup", function(event) {
+document.getElementById("listInput").addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.key == "Enter") {
         document.getElementById("addNewEntry").click();
@@ -46,9 +46,9 @@ class List {
 function addTodoListBtn(){
     // Creates a new list with textfield input as name
 
-    document.getElementById("listenEintrag").hidden = true;
+    document.getElementById("listInput").hidden = true;
     document.getElementById("addNewEntry").hidden = true;
-    document.getElementById("labelListenEintrag").hidden = true;
+    document.getElementById("labelListInput").hidden = true;
     document.getElementById("deletedEntries").innerHTML = "";
     document.getElementById("currentTodoList").innerHTML = "";
     document.getElementById("hideDeletedListButton").innerHTML = "";
@@ -89,7 +89,7 @@ function addTodoListBtn(){
 }
 function addEntryToCurrentList(){
     // adds entry to selected list
-    let input = document.getElementById("listenEintrag");
+    let input = document.getElementById("listInput");
 
     // check if entry already exists in active entries or paper bin,
     // to prevent multiple entroes with the same value
@@ -116,7 +116,7 @@ function addEntryToCurrentList(){
 function updateTodolistsUi(){
     // creates html code for dynamic list
 
-    let tableBody = document.getElementById("TodoListen");
+    let tableBody = document.getElementById("TodoList");
     let dataHtml = "";
     let counter = 1;
 
@@ -144,7 +144,10 @@ function updateTodolistsUi(){
                             + element.Name +
                         "</td>" +
                         "<td class=\"selectButton\">" +
-                            "<input type=\"radio\" name=\"listItem\" id=\"listItem" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
+                            "<input type=\"radio\" name=\"listSelectButton\" id=\"listSelectButton" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
+                        "</td>" +
+                        "<td class=\"deleteButton\">" +
+                            "<input type=\"radio\" class=\"deleteListButton\" name=\"deleteListButton\" id=\"deleteListButton" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
                         "</td>" +
                     "</tr>";
         counter++;
@@ -158,8 +161,10 @@ function updateTodolistsUi(){
     // creates eventlisteners for dynamically created radio buttons
     counter = 0;
     listOfTodoLists.forEach(element => {
-        let temp = "listItem" + counter;
+        let temp = "listSelectButton" + counter;
         document.getElementById(temp).addEventListener('click', selectList); 
+        temp = "deleteListButton" + counter;
+        document.getElementById(temp).addEventListener('click', deleteList); 
         counter++;
     });
 }
@@ -181,9 +186,9 @@ function selectList(){
     title.innerText = "Current List: " + listOfTodoLists[selectedListIndex].Name;
 
     // once a list is selected shows the required functionality for adding entries
-    document.getElementById("listenEintrag").hidden = false;
+    document.getElementById("listInput").hidden = false;
     document.getElementById("addNewEntry").hidden = false;
-    document.getElementById("labelListenEintrag").hidden = false;
+    document.getElementById("labelListInput").hidden = false;
     
     updateCurrentList(selectedListIndex);
 }
@@ -201,7 +206,7 @@ function updateCurrentList(selectedListIndex){
             // deleted list is not being shown
 
             //creates button
-            document.getElementById("deletedEntries").innerHTML = "<tr><td><input type=\"button\" name=\"showDeletedListBtn\" id=\"showDeletedListBtn\" value=\"Show Deleted Entries\"></td></tr>";
+            document.getElementById("hideDeletedListButton").innerHTML = "<tr><td><input type=\"button\" name=\"showDeletedListBtn\" id=\"showDeletedListBtn\" value=\"Show Deleted Entries\"></td></tr>";
 
             // create eventlistener for button
             document.getElementById("showDeletedListBtn").addEventListener('click', showDeletedListEntries);
@@ -224,7 +229,7 @@ function updateCurrentList(selectedListIndex){
                             + element +
                         "</td>" +
                         "<td class=\"selectButton\">" +
-                            "<input type=\"radio\" name=\"subListItem\" id=\"subListItem" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
+                            "<input type=\"radio\" name=\"entrySelectButton\" id=\"entrySelectButton" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
                         "</td>" +
                         "</tr>";
             counter++;
@@ -237,7 +242,7 @@ function updateCurrentList(selectedListIndex){
     //creating eventlisteners for dynamically created buttons
     counter = 0;
     listOfTodoLists[selectedListIndex].listData.forEach(element => {
-        let temp = "subListItem" + counter;
+        let temp = "entrySelectButton" + counter;
         document.getElementById(temp).addEventListener('click', deleteSelectedEntry); 
         counter++;
     });
@@ -271,7 +276,10 @@ function showDeletedListEntries(){
                             + element +
                         "</td>" +
                         "<td class=\"selectButton\">" +
-                            "<input type=\"radio\" name=\"deletedSubListItem\" id=\"deletedSubListItem" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
+                            "<input type=\"radio\" name=\"deletedListSelectButton\" id=\"deletedListSelectButton" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
+                        "</td>" +
+                        "<td class=\"deleteButton\">" +
+                            "<input type=\"radio\" class=\"deleteEntryButton\" name=\"deleteEntryButton\" id=\"deleteEntryButton" + (counter-1) + "\" value=\"" + (counter-1) +"\">" +
                         "</td>" +
                     "</tr>";
             counter++;
@@ -285,8 +293,10 @@ function showDeletedListEntries(){
     // creating eventlisteners for dynamically created buttons
     counter = 0;
     listOfTodoLists[selectedListIndex].listDataDeleted.forEach(element => {
-        let temp = "deletedSubListItem" + counter;
+        let temp = "deletedListSelectButton" + counter;
         document.getElementById(temp).addEventListener('click', reAddDeletedEntriesToList); 
+        temp = "deleteEntryButton" + counter;
+        document.getElementById(temp).addEventListener('click', deleteEntryFromList); 
         counter++;
     });
 }
@@ -305,5 +315,17 @@ function hideDeletedList(){
 
     showDeletedList = false;
     document.getElementById("hideDeletedListButton").innerHTML = "";
+    document.getElementById("deletedEntries").innerHTML = "";
     updateCurrentList(selectedListIndex);
+}
+function deleteEntryFromList(){
+    listOfTodoLists[selectedListIndex].listDataDeleted.splice(this.value, 1);
+    updateCurrentList(selectedListIndex);
+    showDeletedListEntries();
+}
+function deleteList(){
+    listOfTodoLists.splice(this.value, 1)
+    updateTodolistsUi();
+    updateCurrentList(selectedListIndex);
+    showDeletedListEntries();
 }

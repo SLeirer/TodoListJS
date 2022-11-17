@@ -12,25 +12,25 @@
         <tr>
             <td class="input" colspan="2">
                 <label for="nameOfList">Listen Name</label><br>
-                <input type="text" name="nameOfList" id="nameOfList" placeholder="ListName">
+                <input type="text" name="nameOfList" id="nameOfList" placeholder="Listen Name">
                 <input type="button" name="addNewList" id="addNewList" value="add">
             </td>
             <td class="input" colspan="2">
-                <label for="listenEintrag" id="labelListenEintrag" hidden>Listen Eintrag</label><br>
-                <input type="text" name="listenEintrag" id="listenEintrag" placeholder="Listen Eintrag" hidden>
+                <label for="listInput" id="labelListInput" hidden>Listen Eintrag</label><br>
+                <input type="text" name="listInput" id="listInput" placeholder="Listen Eintrag" hidden>
                 <input type="button" name="addNewEntry" id="addNewEntry" value="add" hidden>
             </td>
         </tr>
         <tr>
             <td colspan="2" class="listBox">
-                <h4 class="heading">Listendirectory</h4>
+                <h4 class="heading">List Verzeichnis</h4>
                 <hr>
-                <table name="TodoListen" id="TodoListen" class="listTable">
+                <table name="TodoList" id="TodoList" class="listTable">
                     <!--List with dynamically created entires-->
                 </table>
             </td>
             <td colspan="2" class="listBox">
-                <h4 class="heading" id="currentListTitel">ListenTitel</h4>
+                <h4 class="heading" id="currentListTitel">Listen Titel</h4>
                 <hr>
                 <table id="currentTodoList" class="listTable">
                     <!--List with dynamically created entires-->
@@ -39,7 +39,7 @@
                 <table id="deletedEntries" class="listTable">
 
                 </table>
-                <table id="hideDeletedListButton" class="listTable">
+                <table id="hideDeletedListButton" class="paperBinButtons">
 
                 </table>
             </td> 
