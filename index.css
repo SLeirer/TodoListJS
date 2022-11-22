@@ -27,19 +27,19 @@ table{
 .listItem{
     text-align: right;
     min-width: fit-content;
-    width: 48%;
+    width: fit-content;
 }
 
 .listIndex{
-    min-width: 3ch;
-    width: 4%;
+    width: 3ch;
     text-align: right;
 }
 
 .selectButton{
     text-align: right;
     min-width: fit-content;
-    width: 48%;
+    width: 2ch;
+    background-color: hsl(133, 75%, 42%);
 }
 
 .input{
@@ -48,12 +48,7 @@ table{
     padding: 1%;
 }
 
-.paperBinButtons{
-    width: 100%;
-    border-style: none;
-    text-align: right;
-}
-
 .deleteButton{
-    background-color: red;
+    background-color: hsl(0, 100%, 50%);
+    width: 2ch;
 }
