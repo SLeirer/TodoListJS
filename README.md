@@ -2,7 +2,7 @@ Todo Liste mit Javascript
 =================
 # Inhalt
 [Infos](#infos)  
-[genutzte Software und resourcen](#zur-projekterstellung-genutze-software-und-resourcen)
+[Genutzte Software und resourcen](#zur-projekterstellung-genutze-software-und-resourcen)
 
 ## Infos
 Projekt für die selbständige auseinandersetzunng mit JavaScript.
