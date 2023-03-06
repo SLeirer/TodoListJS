@@ -17,3 +17,4 @@ Beinhaltete features
 ## Zur projekterstellung genutze software und resourcen
 
 * Visual Studio code.
+* Verschiedene online resourcen um spezifische javascript befehle nachzuschlagen bsplws.: W3schools
